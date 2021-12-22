@@ -15,11 +15,11 @@
     <div class="bg-white py-8">
         <div class="container mx-auto">
             <h2 class="text-3xl text-gray-600">Properties
-                @if(request('type') == '0')
+                @if(request('type') == 'land')
                     - Land
-                @elseif(request('type') == 1)
+                @elseif(request('type') == 'appartment')
                     - Apartment
-                @elseif(request('type') == 2)
+                @elseif(request('type') == 'villa')
                     - Villa
                 @endif
             </h2>
@@ -38,7 +38,7 @@
                     
                     @endforeach
                 </div>
-                {{$latest_properties->links()}}
+                {{$latest_properties->withQueryString()->links()}}
             </div>{{-- Left Content End --}}
 
 

@@ -20,7 +20,14 @@ class PropertyController extends Controller
       $locations = Location::select(['id', 'name'])->get();
 
       if(!empty($request->sale)) {
-         $latest_properties= $latest_properties->where('sale', $request->sale);
+
+         if ($request->sale == 'rent') {
+            $sale = 1;
+         }elseif($request->sale == 'sale'){
+            $sale = 2;
+         }
+
+         $latest_properties= $latest_properties->where('sale', $sale);
         }
 
       if(!empty($request->bedrooms)) {
@@ -50,7 +57,14 @@ class PropertyController extends Controller
       }
 
       if(!empty($request->type)) {
-         $latest_properties= $latest_properties->where('type', $request->type);
+         if ($request->type == 'land') {
+            $type = 1;
+         }elseif($request->type == 'appartment'){
+            $type = 2;
+         }elseif($request->type == 'villa'){
+            $type = 3;
+         }
+         $latest_properties= $latest_properties->where('type', $type);
         }
 
       if(!empty($request->location)) {

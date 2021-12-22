@@ -21,8 +21,8 @@ class CreatePropertiesTable extends Migration
             $table->unsignedBigInteger('location_id');
 
             $table->unsignedBigInteger('price');
-            $table->unsignedBigInteger('sale')->default(1)->comment('0=rent, 1=sale');
-            $table->unsignedBigInteger('type')->default(1)->comment('0=land, 1=appartment, 2=villa');
+            $table->unsignedBigInteger('sale')->default(1)->comment('rent=1, sale=2');
+            $table->unsignedBigInteger('type')->default(1)->comment('land=1, appartment=2, villa=3');
             $table->string('bedrooms')->nullable();
 
             $table->unsignedBigInteger('bathrooms')->nullable();

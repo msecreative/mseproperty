@@ -17,11 +17,11 @@ class PropertyFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence,
-            'featured_image' => 'https://picsum.photos/1200/800',
+            'featured_image' => 'https://picsum.photos/1200/800?random=' . rand(10, 1000),
             'location_id' => Location::all()->random()->id,
             'price' => rand(100000,500000),
-            'sale' => rand(0,1),
-            'type' => rand(0,2),
+            'sale' => rand(1,2),
+            'type' => rand(1,3),
             'bedrooms' => rand(1,6),
             'bathrooms' => rand(1,5),
             'net_sqm' => rand(55,300),

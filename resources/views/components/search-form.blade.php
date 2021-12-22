@@ -3,8 +3,8 @@
                         <div class="flex flex-col mx-2">
                             <select name="sale" class="border-0 focus:ring-0">
                                 <option value="">Buy or Rent</option>
-                                <option {{request('sale') == '1' ? 'selected="selected"' : ''}} value="1">Buy</option>
-                                <option {{request('sale') == '0' ? 'selected="selected"' : ''}} value="0">Rent</option>
+                                <option {{request('sale') == 'sale' ? 'selected="selected"' : ''}} value="sale">Buy</option>
+                                <option {{request('sale') == 'rent' ? 'selected="selected"' : ''}} value="rent">Rent</option>
                             </select>
                         </div>
 
@@ -23,13 +23,13 @@
                         <div class="flex flex-col mx-2">
                             <select name="type" class="border-0 focus:ring-0">
                                 <option value="">Type</option>
-                                <option {{request('type') == '0' ? 'selected="selected"' : ''}} value="0">Land</option>
-                                <option {{request('type') == '1' ? 'selected="selected"' : ''}} value="1">Apartment</option>
-                                <option {{request('type') == '2' ? 'selected="selected"' : ''}} value="2">Villa</option>
+                                <option {{request('type') == 'land' ? 'selected="selected"' : ''}} value="land">Land</option>
+                                <option {{request('type') == 'appartment' ? 'selected="selected"' : ''}} value="appartment">Apartment</option>
+                                <option {{request('type') == 'villa' ? 'selected="selected"' : ''}} value="villa">Villa</option>
                             </select>
                         </div>
                         <div class="py-3 self-center border-gray-500 border"></div>
-                        <div class="flex flex-col mx-1">
+                        <div class="flex flex-col mx-2">
                             <select name="price" class="border-0 focus:ring-0">
                                 <option value="">Price</option>
                                 <option {{request('price') == '100000' ? 'selected="selected"' : ''}} value="100000">0 - 100000</option>
