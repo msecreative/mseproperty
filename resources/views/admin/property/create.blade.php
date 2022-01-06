@@ -6,7 +6,7 @@
             </h2>
 
             <div class="min-w-max">
-                <a href="{{route('dashboard-properties')}}" class="fullwidth-btn bg-green-400">Back to Properties Dashboard</a>
+                <a href="{{route('dashboard-property.index')}}" class="fullwidth-btn bg-green-400">Back to Properties Dashboard</a>
             </div>
         </div>
     </x-slot>
@@ -14,12 +14,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <form method="post" action="{{route('create-property')}}" class="p-6 bg-white border-b border-gray-200">
+                <form method="post" action="{{route('dashboard-property.store')}}" class="p-6 bg-white border-b border-gray-200" enctype="multipart/form-data">
                     @csrf
                    <div class="flex -mx-4 mb-6">
                        <div class="flex-1 px-4">
-                            <label for="name" class="mseproperty-label">Title</label>
-                            <input type="text" class="mseproperty-input" id="name" name="name">
+                            <label for="name" class="mseproperty-label">Title <span class="required-text">*</span></label>
+                            <input type="text" class="mseproperty-input" id="name" name="name" value="{{old('name')}}" required>
 
                             @error('name')
                                 <p class="text-red-500 mt-2 text-sm">{{ $message }}</p>
@@ -27,8 +27,8 @@
                        </div>
 
                        <div class="flex-1 px-4">
-                            <label for="name_bn" class="mseproperty-label">Title - Bangla</label>
-                            <input type="text" class="mseproperty-input" id="name_bn" name="name_bn">
+                            <label for="name_bn" class="mseproperty-label">Title - Bangla <span class="required-text">*</span></label>
+                            <input type="text" class="mseproperty-input" id="name_bn" name="name_bn" value="{{old('name_bn')}}" required>
 
                             @error('name_bn')
                                 <p class="text-red-500 mt-2 text-sm">{{ $message }}</p>
@@ -39,21 +39,33 @@
                    {{-- Featured Image Start --}}
 
                    <div class="mb-6">
-                        <label for="featured_image" class="mseproperty-label">Featured Image</label>
-                        <input type="file" class="mseproperty-input" id="featured_image" name="featured_image">
+                        <label for="featured_image" class="mseproperty-label">Featured Image <span class="required-text">*</span></label>
+                        <input type="file" class="mseproperty-input" id="featured_image" name="featured_image" required>
 
                         @error('featured_image')
                             <p class="text-red-500 mt-2 text-sm">{{ $message }}</p>
                         @enderror
                    </div>
                    {{-- Featured Image End --}}
+
+                   <div class="mb-6">
+                        <label for="gallery_images" class="mseproperty-label">Gallery Image <span class="required-text">*</span></label>
+                        <input type="file" class="mseproperty-input" id="gallery_images" name="gallery_images[]" required multiple>
+
+                        @error('gallery_images')
+                            <p class="text-red-500 mt-2 text-sm">{{ $message }}</p>
+                        @enderror
+                   </div>
+                   {{-- Gallery Image End --}}
                    {{-- Location Price Start --}}
                    <div class="flex -mx-4 mb-6">
                        <div class="flex-1 px-4">
-                            <label for="location_id" class="mseproperty-label0">Location</label>
+                            <label for="location_id" class="mseproperty-label">Location <span class="required-text">*</span></label>
                             <select name="location_id" id="location_id">
                                 <option value="">Select a Location</option>
-                                <option value="0">Select a Service Type</option>
+                                @foreach($locations as $location)
+                                <option {{old('location_id') == $location->id ? 'selected="selected"' : ''}} value="{{$location->id}}">{{$location->name}}</option>
+                                @endforeach
                             </select>
 
                             @error('location_id')
@@ -62,8 +74,8 @@
                        </div>
 
                        <div class="flex-1 px-4">
-                            <label for="price" class="mseproperty-label">Price</label>
-                            <input type="number" class="mseproperty-input" id="price" name="price">
+                            <label for="price" class="mseproperty-label">Price <span class="required-text">*</span></label>
+                            <input type="number" class="mseproperty-input" id="price" name="price" value="{{old('price')}}" required>
 
                             @error('price')
                                 <p class="text-red-500 mt-2 text-sm">{{ $message }}</p>
@@ -74,8 +86,8 @@
                             <label for="sale" class="mseproperty-label">Service Type</label>
                             <select name="sale" id="sale">
                                 <option value="">Select a Service Type</option>
-                                <option value="sale">Buy</option>
-                                <option value="rent">Rent</option>
+                                <option {{old('sale') == '1' ? 'selected="selected"' : ''}} value="1">Buy</option>
+                                <option {{old('sale') == '2' ? 'selected="selected"' : ''}} value="2">Rent</option>
                             </select>   
 
                             @error('sale')
@@ -87,9 +99,9 @@
                             <label for="type" class="mseproperty-label">Property Type</label>
                             <select name="type" id="type">
                                 <option value="">Select a Property</option>
-                                <option value="land">Buy</option>
-                                <option value="appartment">Appartment</option>
-                                <option value="villa">Villa</option>
+                                <option {{old('type') == '2' ? 'selected="selected"' : ''}} value="2">Land</option>
+                                <option {{old('type') == '1' ? 'selected="selected"' : ''}} value="1">Appartment</option>
+                                <option {{old('type') == '3' ? 'selected="selected"' : ''}} value="3">Villa</option>
                             </select>   
 
                             @error('type')
@@ -125,6 +137,19 @@
                             </select>
 
                             @error('bedrooms')
+                            <p class="text-red-500 mt-2 text-sm">{{$message}}</p>
+                            @enderror
+                        </div>
+
+                        <div class="flex-1 px-4">
+                            <label class="mseproperty-label" for="kitchens">Kitchen</label>
+                            <select class="mseproperty-input"  name="kitchens" id="kitchens">
+                                <option value="">Select kitchens</option>
+                                <option {{old('kitchens') == '1' ? 'selected="selected"' : ''}} value="0">No</option>
+                                <option {{old('kitchens') == '2' ? 'selected="selected"' : ''}} value="1">Yes</option>
+                            </select>
+
+                            @error('kitchens')
                             <p class="text-red-500 mt-2 text-sm">{{$message}}</p>
                             @enderror
                         </div>
@@ -208,10 +233,10 @@
                         </div>
 
                         <div class="flex-1 px-4">
-                            <label class="mseproperty-label" for="why_buy_tr">Why buy - BN <span class="required-text">*</span></label>
-                            <textarea class="mseproperty-input" name="why_buy_tr" id="why_buy_tr" cols="30" rows="5">{{old('why_buy_tr')}}</textarea>
+                            <label class="mseproperty-label" for="why_buy_bn">Why buy - BN <span class="required-text">*</span></label>
+                            <textarea class="mseproperty-input" name="why_buy_bn" id="why_buy_bn" cols="30" rows="5">{{old('why_buy_bn')}}</textarea>
 
-                            @error('why_buy_tr')
+                            @error('why_buy_bn')
                             <p class="text-red-500 mt-2 text-sm">{{$message}}</p>
                             @enderror
                         </div>
@@ -228,7 +253,7 @@
                         </div>
 
                         <div class="flex-1 px-4">
-                            <label class="mseproperty-label" for="description_tr">Description - BN <span class="required-text">*</span></label>
+                            <label class="mseproperty-label" for="description_bn">Description - BN <span class="required-text">*</span></label>
                             <textarea class="mseproperty-input" name="description_bn" id="description_bn" cols="30" rows="10">{{old('description_bn')}}</textarea>
 
                             @error('description_bn')

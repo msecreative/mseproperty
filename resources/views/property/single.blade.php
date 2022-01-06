@@ -16,7 +16,7 @@
             <div class="flex justify-between">
                 <div class="w-8/12">
                     <h2 class="text-3xl text-gray-600">{{$property->name}}</h2>
-                    <h3 class="text-lg mt-2">Price: <span class="text-red-800">{{ number_format($property->price, 2, ',', ',') }} TK</span></h3>
+                    <h3 class="text-lg mt-2">Price: <span class="text-red-800">{{$property->dynamicPricing($property->price)}}</span></h3>
                 </div>
                 <div class="w-3/12">
                     <ul class="flex justify-end -mr-2">
@@ -54,13 +54,13 @@
                 <div id="slider" class="">
                     <div class="gallery-slider">
                         @foreach($property->gallery as $gallery)
-                        <div style="background-image: url({{$gallery->name}})" class="single-gallery-item bg-cover bg-center"></div>
+                        <div style="background-image: url(/storage/uploads/{{$gallery->name}});background-repeat: no-repeat;" class="single-gallery-item bg-cover bg-center"></div>
                         @endforeach
                     </div>
 
                     <div class="thumbnail-slider">
                         @foreach($property->gallery as $gallery)
-                        <div style="background-image: url({{$gallery->name}})" class="single-thumbnail-item bg-cover bg-center"></div>
+                        <div style="background-image: url(/storage/uploads/{{$gallery->name}})" class="single-thumbnail-item bg-cover bg-center"></div>
                         @endforeach
                         
                     </div>
@@ -94,11 +94,18 @@
 
                                     </span>
                                 </li>
-                                <li class="flex text-sm">
+                                <li class="flex text-sm mb-2">
                                     <div class="flex"><i
                                             class="fa fa-bed mr-2 text-red-400 w-5 text-center"></i><span
                                             class="text-sm">Bedrooms:</span></div>
                                     <span class="ml-2 font-bold">{{$property->bedrooms}}</span>
+                                </li>
+
+                                <li class="flex text-sm">
+                                    <div class="flex"><i
+                                            class="fa fa-bed mr-2 text-red-400 w-5 text-center"></i><span
+                                            class="text-sm">Drawing Rooms:</span></div>
+                                    <span class="ml-2 font-bold">{{$property->drawing_rooms}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -114,7 +121,7 @@
                                     <div class="flex"><i
                                             class="fa fa-map-marker mr-2 text-red-400 w-5 text-center"></i><span
                                             class="text-sm">Location:</span></div>
-                                    <span class="ml-2 font-bold">{{$property->location_id}}</span>
+                                    <span class="ml-2 font-bold">{{$property->location->name}}</span>
                                 </li>
                             </ul>
                         </div>

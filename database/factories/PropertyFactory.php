@@ -25,10 +25,12 @@ class PropertyFactory extends Factory
             'sale' => rand(1,2),
             'type' => rand(1,3),
             'bedrooms' => rand(1,6),
+            'drawing_rooms' => rand(1,6),
+            'kitchens' => rand(1,2),
             'bathrooms' => rand(1,5),
             'net_sqm' => rand(55,300),
             'gross_sqm' => rand(65,450),
-            'pool' => rand(0,3),
+            'pool' => rand(1,4),
 
             'overview' => $this->faker->text(100),
             'overview_bn' => $this->faker->text(100),

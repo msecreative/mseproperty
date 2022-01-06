@@ -2,11 +2,11 @@
     <x-slot name="header">
         <div class="flex justify-between text-center">
              <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Properties') }}
+                {{ __('Users') }}
             </h2>
 
             <div class="min-w-max">
-                <a href="{{route('add-property')}}" class="fullwidth-btn bg-green-400">Add New Property</a>
+                <a href="{{route('dashboard-user.create')}}" class="fullwidth-btn bg-green-400">Add New User</a>
             </div>
         </div>
        
@@ -19,22 +19,21 @@
                     <table class="w-full table-auto mb-6">
                         <thead>
                             <tr>
-                                <th class="border px-4 py-2">Name</th>
-                                <th class="border px-4 py-2">Location</th>
-                                <th class="border px-4 py-2">Price</th>
+                                <th class="border px-4 py-2">User Name</th>
+                                <th class="border px-4 py-2">User Email</th>
+                                <th class="border px-4 py-2">User Password</th>
                                 <th width="250px" class="border px-4 py-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($properties as $property)
+                            @foreach($users as $user)
                             <tr>
-                                <td class="border px-4 py-2">{{$property->name}}</td>
-                                <td class="border px-4 py-2">{{$property->location->name}}</td>
-                                <td class="border px-4 py-2">{{$property->price}}</td>
+                                <td class="border px-4 py-2">{{$user->name}}</td>
+                                <td class="border px-4 py-2">{{$user->email}}</td>
+                                <td class="border px-4 py-2">{{$user->password}}</td>
                                 <td class="border px-4 py-2 text-center">
-                                    <a href="{{route('edit-property', $property->id)}}" target="_blank" class="bg-blue-600 text-white px-4 py-2 text-xs rounded">Edit</a>
-                                    <a href="{{route('single-property', $property->id)}}" target="_blank" class="bg-green-600 text-white px-4 py-2 text-xs rounded">View</a>
-                                    <form onsubmit="return confirm('Do you realy want to delete the property item!!');" action="{{route('delete-property', $property->id)}}" method="post" class="inline-block">@csrf
+                                    <a href="{{route('dashboard-user.edit', $user->id)}}" target="_blank" class="bg-blue-600 text-white px-4 py-2 text-xs rounded">Edit</a>
+                                    <form onsubmit="return confirm('Do you realy want to delete the location item!!');" action="{{route('dashboard-user.destroy', $user->id)}}" method="post" class="inline-block">@csrf @method('delete')
                                         <button type="submit" class="bg-red-600 text-white px-4 py-2 text-xs rounded">Delete</button>
                                     </form>
                                 </td>
@@ -42,7 +41,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{$properties->links()}}
+                    {{$users->links()}}
                 </div>
             </div>
         </div>

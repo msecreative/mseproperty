@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
         $user->email = 'sharmin.2304@gmail.com';
         $user->email_verified_at = now();
         $user->password = Hash::make('sharmin');
+        $user->password_confirmation = Hash::make('sharmin');
         $user->remember_token = Str::random(10);
         $user->save();
 
